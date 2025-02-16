@@ -9,11 +9,14 @@ void printArray(int A[], int n){
 }
 
 void Merge(int A[], int mid, int low, int high){
+    //Creating a B[] and declaring all the variables
     int i, j, k, B[100];
+    //Initializing the variables and dividing the array A[] in two parts
     i = low; 
     j = mid+1; 
     k = low;
 
+    //Copying the elemets from A[] to B[] in sorted manner untill one of the divided part of Array A[] comes to an end
     while(i <= mid && j <= high){
         if(A[i] < A[j]){
             B[k] = A[i];
@@ -26,6 +29,7 @@ void Merge(int A[], int mid, int low, int high){
             j++;
         }
     }
+    //When one part of divided array comes to the end, copying the remaining data of the another array into the Array B[]
     while(i <= mid){
         B[k] = A[i];
         k++;
@@ -36,6 +40,7 @@ void Merge(int A[], int mid, int low, int high){
         k++;
         j++;
     }
+    //Copying the data from the modified Array B[] to the Array A[]
     for(int i = low; i <= high; i++){
         A[i] = B[i];
     }
