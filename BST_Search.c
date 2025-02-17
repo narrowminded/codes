@@ -23,17 +23,29 @@ struct node* createNode(int data){
 //     }
 // }
 
-struct node* addNode(struct node* p, int data){
-    struct node* n = (struct node*)malloc(sizeof(struct node));
-    n->data = data;
-    n->left = n->right = NULL;
-    if(n->data > p->data){
-        p->right = n;
-        return p;
+void addNode(struct node* root, int data){
+    struct node* prev;
+    while(root != NULL){
+        prev = root;
+        if(root->data == data){
+            printf("Node already Exists");
+            return;
+        }
+        if(root->data > data){
+            root = root->left;
+        }
+        else{
+            root = root->right;
+        }
+    }
+    struct node* n = createNode(data);
+    if(n->data > prev->data){
+        prev->right = n;
+        prev->left = NULL;
     }
     else{
-        p->left = n;
-        return p;
+        prev->left = n;
+        prev->right = NULL;
     }
 }
 
@@ -81,19 +93,23 @@ void inorder(struct node* root){
 int main()
 {
     struct node *p = createNode(4);
-    p = addNode(p,3);
-    p = addNode(p,5);
-    p = addNode(p,2);
-    p = addNode(p,53);
-    p = addNode(p,56);
-    p = addNode(p,59);
-    p = addNode(p,545);
+    addNode(p,3);
+    addNode(p,5);
+    addNode(p,6);
+    addNode(p,8);
+    addNode(p,2);
+    addNode(p,53);
+    addNode(p,56);
+    addNode(p,59);
+    // addNode(p,545);
+    // addNode(p,45);
+    // addNode(p,454);
     preorder(p);
     printf("\n");
     postorder(p);
     printf("\n");
     inorder(p);
     printf("\n");
-    searchBST(p,55);
+    searchBST(p,56);
     return 0;
 }
